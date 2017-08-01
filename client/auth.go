@@ -6,8 +6,8 @@ import (
 	"encoding/binary"
 
 	"github.com/juju/errors"
-	. "github.com/siddontang/go-mysql/mysql"
-	"github.com/siddontang/go-mysql/packet"
+	. "github.com/lanfang/go-mysql/mysql"
+	"github.com/lanfang/go-mysql/packet"
 )
 
 func (c *Conn) readInitialHandshake() error {

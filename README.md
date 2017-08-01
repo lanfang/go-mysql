@@ -1,3 +1,4 @@
+> 有些小功能可能不适合提到源仓库, 自己维护一份代码, 感谢[siddontang/go-mysql](https://github.com/siddontang/go-mysql)，会定期同步源仓库
 # go-mysql
 
 A pure go library to handle MySQL network protocol and replication.

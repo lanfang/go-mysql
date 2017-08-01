@@ -6,7 +6,7 @@ import (
 	"math"
 
 	"github.com/juju/errors"
-	. "github.com/siddontang/go-mysql/mysql"
+	. "github.com/lanfang/go-mysql/mysql"
 	"github.com/siddontang/go/hack"
 )
 

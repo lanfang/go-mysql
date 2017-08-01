@@ -11,8 +11,8 @@ import (
 	"golang.org/x/net/context"
 
 	"github.com/juju/errors"
-	"github.com/siddontang/go-mysql/mysql"
-	"github.com/siddontang/go-mysql/replication"
+	"github.com/lanfang/go-mysql/mysql"
+	"github.com/lanfang/go-mysql/replication"
 )
 
 var host = flag.String("host", "127.0.0.1", "MySQL host")

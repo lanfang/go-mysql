@@ -10,11 +10,11 @@ import (
 
 	"github.com/juju/errors"
 	"github.com/ngaut/log"
-	"github.com/siddontang/go-mysql/client"
-	"github.com/siddontang/go-mysql/dump"
-	"github.com/siddontang/go-mysql/mysql"
-	"github.com/siddontang/go-mysql/replication"
-	"github.com/siddontang/go-mysql/schema"
+	"github.com/lanfang/go-mysql/client"
+	"github.com/lanfang/go-mysql/dump"
+	"github.com/lanfang/go-mysql/mysql"
+	"github.com/lanfang/go-mysql/replication"
+	"github.com/lanfang/go-mysql/schema"
 	"golang.org/x/net/context"
 )
 
