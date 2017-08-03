@@ -41,7 +41,8 @@ type Config struct {
 	ServerID uint32 `toml:"server_id"`
 	Flavor   string `toml:"flavor"`
 
-	Dump DumpConfig `toml:"dump"`
+	Dump        DumpConfig          `toml:"dump"`
+	BlackSchema map[string]struct{} `toml:"black_schemal"`
 }
 
 func NewConfigWithFile(name string) (*Config, error) {

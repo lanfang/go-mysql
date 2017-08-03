@@ -26,6 +26,7 @@ const (
 	TYPE_TIME                 // time
 	TYPE_BIT                  // bit
 	TYPE_JSON                 // json
+	TYPE_TEXT                 // text
 )
 
 type TableColumn struct {

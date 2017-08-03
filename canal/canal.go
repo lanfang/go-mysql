@@ -9,12 +9,12 @@ import (
 	"sync"
 
 	"github.com/juju/errors"
-	"github.com/ngaut/log"
 	"github.com/lanfang/go-mysql/client"
 	"github.com/lanfang/go-mysql/dump"
 	"github.com/lanfang/go-mysql/mysql"
 	"github.com/lanfang/go-mysql/replication"
 	"github.com/lanfang/go-mysql/schema"
+	"github.com/ngaut/log"
 	"golang.org/x/net/context"
 )
 
@@ -27,11 +27,11 @@ type Canal struct {
 
 	useGTID bool
 
-	master     *masterInfo
-	dumper     *dump.Dumper
-	dumpDoneCh chan struct{}
-	syncer     *replication.BinlogSyncer
-
+	master       *masterInfo
+	dumper       *dump.Dumper
+	dumpDoneCh   chan struct{}
+	syncer       *replication.BinlogSyncer
+	errCh        chan error
 	eventHandler EventHandler
 
 	connLock sync.Mutex
@@ -57,7 +57,6 @@ func NewCanal(cfg *Config) (*Canal, error) {
 
 	c.tables = make(map[string]*schema.Table)
 	c.master = &masterInfo{}
-
 	var err error
 
 	if err = c.prepareDumper(); err != nil {
@@ -163,6 +162,7 @@ func (c *Canal) run() error {
 
 	if err = c.runSyncBinlog(); err != nil {
 		log.Errorf("canal start sync binlog err: %v", err)
+		c.errCh <- err
 		return errors.Trace(err)
 	}
 
@@ -194,6 +194,9 @@ func (c *Canal) WaitDumpDone() <-chan struct{} {
 	return c.dumpDoneCh
 }
 
+func (c *Canal) ErrorCh() <-chan error {
+	return c.errCh
+}
 func (c *Canal) Ctx() context.Context {
 	return c.ctx
 }

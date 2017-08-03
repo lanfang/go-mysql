@@ -1,15 +1,15 @@
 package canal
 
 import (
+	"fmt"
 	"regexp"
 	"time"
-	"fmt"
 
 	"github.com/juju/errors"
-	"github.com/ngaut/log"
 	"github.com/lanfang/go-mysql/mysql"
 	"github.com/lanfang/go-mysql/replication"
 	"github.com/lanfang/go-mysql/schema"
+	"github.com/ngaut/log"
 	"github.com/satori/go.uuid"
 )
 
@@ -39,7 +39,8 @@ func (c *Canal) startSyncer() (*replication.BinlogStreamer, error) {
 
 func (c *Canal) runSyncBinlog() error {
 
-	s, err := c.startSyncer(); if err != nil {
+	s, err := c.startSyncer()
+	if err != nil {
 		return err
 	}
 
@@ -130,7 +131,10 @@ func (c *Canal) handleRowsEvent(e *replication.BinlogEvent) error {
 	// Caveat: table may be altered at runtime.
 	schema := string(ev.Table.Schema)
 	table := string(ev.Table.Table)
-
+	//有些表没有访问权限，直接返回
+	if _, ok := c.cfg.BlackSchema[fmt.Sprintf("%s.%s", schema, table)]; ok {
+		return nil
+	}
 	t, err := c.GetTable(schema, table)
 	if err != nil {
 		return errors.Trace(err)
