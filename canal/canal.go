@@ -51,7 +51,7 @@ func NewCanal(cfg *Config) (*Canal, error) {
 	c.cfg = cfg
 
 	c.ctx, c.cancel = context.WithCancel(context.Background())
-
+	c.errCh = make(chan error, 1)
 	c.dumpDoneCh = make(chan struct{})
 	c.eventHandler = &DummyEventHandler{}
 
